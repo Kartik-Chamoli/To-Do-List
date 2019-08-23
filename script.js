@@ -8,15 +8,24 @@ AddTodo.addEventListener("keyup", function(event) {
 });
 
 let TogAllTodo = document.getElementById("TogAllTodo");
-TogAllTodo.addEventListener("click", function(event) {
+TogAllTodo.addEventListener("click", function() {
   todoList.toggleAll();
 });
 
 let DeleteAllTodo = document.getElementById("DeleteAllTodo");
-DeleteAllTodo.addEventListener("click", function(event) {
+DeleteAllTodo.addEventListener("click", function() {
   let todoSize = todoList.todos.length;
   todoList.todos.splice(0, todoSize);
   todoList.displayTodos();
+});
+
+let DeleteMarkedTodo = document.getElementById("DeleteMarked");
+DeleteMarkedTodo.addEventListener("click", function(event) {
+	todoList.todos.forEach(function (item , index){
+		if(item.completed === true){
+			todoList.deleteTodos(index);
+		}
+	});
 });
 
 let todoList = {
@@ -60,7 +69,6 @@ let todoList = {
   },
 
   deleteTodos: function(index) {
-    debugger;
     this.todos.splice(index, 1);
     this.displayTodos();
   },
@@ -114,12 +122,18 @@ todosUl.addEventListener("click", function(event) {
       todoList.deleteTodos(parseInt(event.target.parentNode.id));
     }, 200);
   } else if (elementClicked.className === "toggle") {
-    if (elementClicked.checked === true) {
-      todoList.todos[parId].completed = true;
-      elementClicked.parentNode.style.textDecoration = "line-through";
-    } else {
-      todoList.todos[parId].completed = false;
-      elementClicked.parentNode.style.textDecoration = "none";
-    }
+    listOperations.toggleTodos(elementClicked, parId);
   }
 });
+
+let listOperations = {
+	toggleTodos : function(elementClicked, parId){
+		if (elementClicked.checked === true) {
+			todoList.todos[parId].completed = true;
+			elementClicked.parentNode.style.textDecoration = "line-through";
+		  } else {
+			todoList.todos[parId].completed = false;
+			elementClicked.parentNode.style.textDecoration = "none";
+		  }
+	},
+}

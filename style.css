@@ -105,15 +105,25 @@
 
   footer button{
 	  border:none;
-	  background-color: white;
+	  border-radius: 2px; 
 	  font-size: 1.1rem;
 	  cursor: pointer;
+	  padding: 12px;
+	  font-weight: bolder;
+	  color:white;
   }
 
-  footer button:nth-child(1){
-	  border-right: 2px solid black;
+  #DeleteAllTodo{
+	  background-color:rgb(255, 40, 0);	 
   }
 
+  #DeleteMarked{
+	  background-color:#FFC922;
+  }
+
+  #TogAllTodo{
+	  background-color: rgb(39, 161, 70);
+  }
 
   @media screen and (max-width:400px){
 	  .container{margin:0px;
