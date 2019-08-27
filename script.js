@@ -21,11 +21,12 @@ DeleteAllTodo.addEventListener("click", function() {
 
 let DeleteMarkedTodo = document.getElementById("DeleteMarked");
 DeleteMarkedTodo.addEventListener("click", function(event) {
-	todoList.todos.forEach(function (item , index){
-		if(item.completed === true){
-			todoList.deleteTodos(index);
-		}
-	});
+  for (let i = todoList.todos.length - 1; i >= 0; i--) {
+    if (todoList.todos[i].completed === true) {
+      todoList.todos.splice(i, 1);
+    }
+  }
+  todoList.displayTodos();
 });
 
 let todoList = {
@@ -127,13 +128,13 @@ todosUl.addEventListener("click", function(event) {
 });
 
 let listOperations = {
-	toggleTodos : function(elementClicked, parId){
-		if (elementClicked.checked === true) {
-			todoList.todos[parId].completed = true;
-			elementClicked.parentNode.style.textDecoration = "line-through";
-		  } else {
-			todoList.todos[parId].completed = false;
-			elementClicked.parentNode.style.textDecoration = "none";
-		  }
-	},
-}
+  toggleTodos: function(elementClicked, parId) {
+    if (elementClicked.checked === true) {
+      todoList.todos[parId].completed = true;
+      elementClicked.parentNode.style.textDecoration = "line-through";
+    } else {
+      todoList.todos[parId].completed = false;
+      elementClicked.parentNode.style.textDecoration = "none";
+    }
+  }
+};
