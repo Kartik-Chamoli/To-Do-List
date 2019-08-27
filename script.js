@@ -1,9 +1,9 @@
 let AddTodo = document.getElementsByClassName("input-box")[0];
 AddTodo.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
-    let todoTextInput = document.getElementsByClassName("input-box")[0];
-    todoList.addTodos(todoTextInput.value);
-    todoTextInput.value = "";
+	let todoTextInput = document.getElementsByClassName("input-box")[0];
+	todoList.addTodos(todoTextInput.value);
+	todoTextInput.value = "";
   }
 });
 
@@ -53,14 +53,20 @@ let todoList = {
     });
   },
 
-  addTodos: function(item) {
-    if (item === "") {
-      return false;
-    }
-    this.todos.push({
-      todoText: item,
-      completed: false
-    });
+  addTodos: function(textValue) {
+	let splitObj;
+	let splitArr;
+	splitArr = textValue.split(' : ');
+
+	if(splitArr == '') return false;
+	
+	for(let i=0;i<splitArr.length;i++){
+	splitObj = {};
+	splitObj.todoText  = splitArr[i]; 
+	splitObj.completed = false;
+	todoList.todos.push(splitObj);
+	}
+	splitArr = [];	
     this.displayTodos();
   },
 
