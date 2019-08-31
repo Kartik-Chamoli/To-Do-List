@@ -55,7 +55,7 @@ let todoList = {
       todoLi.appendChild(view.createDeleteButton());
       todoLi.prepend(view.createCheckBox());
       todosUl.appendChild(todoLi);
-      todoLi.style.order = todo.listorder;
+      todoLi.style.order = todo.listOrder;
       document.getElementsByClassName("toggle")[index].checked = todo.completed;
     });
   },
@@ -172,15 +172,15 @@ let listOperations = {
     if (colorClicked === "rgb(179, 233, 199)") {
       //Blue color
       document.getElementById(parId).style.order = 1;
-      todoList.todos[parId].order = 1;
+      todoList.todos[parId].listOrder = 1;
     } else if (colorClicked === "rgb(252, 200, 194)") {
       //Pink color
       document.getElementById(parId).style.order = 0;
-      todoList.todos[parId].order = 0;
+      todoList.todos[parId].listOrder = 0;
     } else if (colorClicked === "rgb(153, 209, 123)") {
       //Green color
       document.getElementById(parId).style.order = 2;
-      todoList.todos[parId].order = 2;
+      todoList.todos[parId].listOrder = 2;
     }
   }
 };
