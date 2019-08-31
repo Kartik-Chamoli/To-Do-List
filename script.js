@@ -1,9 +1,9 @@
 let AddTodo = document.getElementsByClassName("input-box")[0];
 AddTodo.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
-	let todoTextInput = document.getElementsByClassName("input-box")[0];
-	todoList.addTodos(todoTextInput.value);
-	todoTextInput.value = "";
+    let todoTextInput = document.getElementsByClassName("input-box")[0];
+    todoList.addTodos(todoTextInput.value);
+    todoTextInput.value = "";
   }
 });
 
@@ -34,7 +34,7 @@ let todoList = {
 
   displayTodos: function() {
     var todosUl = document.querySelector("ul");
-    todosUl.innerHTML = ""; //For inserting list in dom
+    todosUl.innerHTML = "";
 
     this.todos.forEach(function(todo, index) {
       var todoLi = document.createElement("li");
@@ -46,27 +46,36 @@ let todoList = {
       } else {
         todoLi.textContent = todo.todoText;
       }
+      todoLi.style.backgroundColor = todo.listColor;
+
+      view.createListColors().forEach(function(item) {
+        todoLi.appendChild(item);
+      });
+
       todoLi.appendChild(view.createDeleteButton());
       todoLi.prepend(view.createCheckBox());
       todosUl.appendChild(todoLi);
+      todoLi.style.order = todo.listorder;
       document.getElementsByClassName("toggle")[index].checked = todo.completed;
     });
   },
 
   addTodos: function(textValue) {
-	let splitObj;
-	let splitArr;
-	splitArr = textValue.split(' : ');
+    let splitObj;
+    let splitArr;
+    splitArr = textValue.split(" : ");
 
-	if(splitArr == '') return false;
-	
-	for(let i=0;i<splitArr.length;i++){
-	splitObj = {};
-	splitObj.todoText  = splitArr[i]; 
-	splitObj.completed = false;
-	todoList.todos.push(splitObj);
-	}
-	splitArr = [];	
+    if (splitArr == "") return false;
+
+    for (let i = 0; i < splitArr.length; i++) {
+      splitObj = {};
+      splitObj.todoText = splitArr[i];
+      splitObj.completed = false;
+      splitObj.listColor = null;
+      splitObj.listOrder = 3;
+      todoList.todos.push(splitObj);
+    }
+    splitArr = [];
     this.displayTodos();
   },
 
@@ -116,6 +125,16 @@ var view = {
     chkBox.type = "checkbox";
     chkBox.className = "toggle";
     return chkBox;
+  },
+  createListColors: function() {
+    let liColor;
+    let spanArr = [];
+    for (let i = 0; i < 3; i++) {
+      liColor = document.createElement("span");
+      liColor.className = "color" + i; //color0: lightgreen , color1:lightpink, color2:lightblue
+      spanArr[i] = liColor;
+    }
+    return spanArr;
   }
 };
 
@@ -130,6 +149,10 @@ todosUl.addEventListener("click", function(event) {
     }, 200);
   } else if (elementClicked.className === "toggle") {
     listOperations.toggleTodos(elementClicked, parId);
+  } else if (elementClicked.tagName === "SPAN") {
+    let colorClicked = getComputedStyle(elementClicked).backgroundColor;
+    elementClicked.parentNode.style.backgroundColor = colorClicked;
+    listOperations.sortOrder(colorClicked, parId);
   }
 });
 
@@ -141,6 +164,23 @@ let listOperations = {
     } else {
       todoList.todos[parId].completed = false;
       elementClicked.parentNode.style.textDecoration = "none";
+    }
+  },
+
+  sortOrder: function(colorClicked, parId) {
+    todoList.todos[parId].listColor = colorClicked;
+    if (colorClicked === "rgb(179, 233, 199)") {
+      //Blue color
+      document.getElementById(parId).style.order = 1;
+      todoList.todos[parId].order = 1;
+    } else if (colorClicked === "rgb(252, 200, 194)") {
+      //Pink color
+      document.getElementById(parId).style.order = 0;
+      todoList.todos[parId].order = 0;
+    } else if (colorClicked === "rgb(153, 209, 123)") {
+      //Green color
+      document.getElementById(parId).style.order = 2;
+      todoList.todos[parId].order = 2;
     }
   }
 };

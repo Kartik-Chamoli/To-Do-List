@@ -97,7 +97,34 @@
     	  background-color: red;
   }
 
+  ul{
+	  display: flex;
+	  flex-direction: column;
+  }
 
+  ul span{
+	height: 25px;
+	width: 25px;
+	border-radius: 50%;
+	display: inline-block;
+	margin-left:20%;
+	position: absolute;
+	cursor: pointer;
+	border:1px solid black;
+  }
+
+  .color0{
+		background-color: #99d17b;
+		right: 40px;
+  }
+  .color1{
+	  background-color: #fcc8c2;
+	  right: 70px;
+  }
+  .color2{
+	  background-color:#b3e9c7;
+	  right: 100px;
+  }
   footer{
 	 display: flex;
 	 justify-content: center;
