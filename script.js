@@ -7,27 +7,28 @@ AddTodo.addEventListener("keyup", function(event) {
   }
 });
 
-let TogAllTodo = document.getElementById("TogAllTodo");
-TogAllTodo.addEventListener("click", function() {
-  todoList.toggleAll();
-});
+let footBtn = document.querySelector("footer");
+footBtn.addEventListener("click", function(event){
+	switch(event.target.id){
+		case 'TogAllTodo':
+				todoList.toggleAll();
+			break;
+		 case 'DeleteAllTodo':
+				let todoSize = todoList.todos.length;
+				todoList.todos.splice(0, todoSize);
+				todoList.displayTodos();
+			 break;
+		case 'DeleteMarked':
+				for (let i = todoList.todos.length - 1; i >= 0; i--) {
+					if (todoList.todos[i].completed === true) {
+					  todoList.todos.splice(i, 1);
+					}
+				  }
+				  todoList.displayTodos();
+			break;
+	}
+})
 
-let DeleteAllTodo = document.getElementById("DeleteAllTodo");
-DeleteAllTodo.addEventListener("click", function() {
-  let todoSize = todoList.todos.length;
-  todoList.todos.splice(0, todoSize);
-  todoList.displayTodos();
-});
-
-let DeleteMarkedTodo = document.getElementById("DeleteMarked");
-DeleteMarkedTodo.addEventListener("click", function(event) {
-  for (let i = todoList.todos.length - 1; i >= 0; i--) {
-    if (todoList.todos[i].completed === true) {
-      todoList.todos.splice(i, 1);
-    }
-  }
-  todoList.displayTodos();
-});
 
 let todoList = {
   todos: [],
