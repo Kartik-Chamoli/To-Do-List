@@ -11,5 +11,6 @@ A simple to-do list made in javascript.
 ## USAGE
 - Pressing enter adds the to-do list item.
 - Clicking the :x: on a list item deletes it.
+- Clicking the other buttons sorts the list accordingly.
 
 ### Check at  https://kartik-chamoli.github.io/To-Do-List/
